@@ -138,4 +138,27 @@
 
         return $this;
     }
+
+    public function canLogin()
+    {
+        $conn = Db::getConnection();
+
+        $sql = "SELECT * FROM users WHERE username = :username LIMIT 1";
+        $statement = $conn->prepare($sql);
+
+        $username = $this->getUsername();
+        $statement->bindValue(":username", $username);
+
+        $statement->execute();
+        $result = $statement->fetch();
+
+        $password = $this->getPassword();
+        $hash = $result['password'];
+        if (password_verify($password, $hash)) {
+            return true;
+        }else{
+            throw new Exception("Username or password is incorrect!");
+            return false;
+        }
+    }
  }
