@@ -1,3 +1,30 @@
+<?php 
+
+include_once("classes/Db.php");
+include_once("classes/User.php");
+
+    if (!empty($_POST)) {
+        try {
+            $user = new User();
+
+            $user-> setFirstname($_POST["firstname"]);
+            $user-> setLastname($_POST["lastname"]);
+            $user-> setUsername($_POST["username"]);
+            $user-> setPassword($_POST["password"]);
+            $user-> hashPassword();
+
+            $user->save();
+            session_start();
+            $_SESSION['username'] = $_POST["username"];
+            $_SESSION['id'] = $user->getId();
+            header("Location: index.php");
+
+        }catch(\Throwable $th){
+            $error = $th->getMessage();
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
