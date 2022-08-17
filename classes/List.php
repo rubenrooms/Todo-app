@@ -87,8 +87,10 @@ class TodoList
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM Lists";
+        $sql = "SELECT * FROM Lists WHERE user_id = :id";
         $statement = $conn->prepare($sql);
+        $id = $_SESSION['id'];
+        $statement->bindValue(":id", $id);
         $statement->execute();
 
         return $statement->fetchAll();  
