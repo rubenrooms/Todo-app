@@ -155,6 +155,7 @@
         $password = $this->getPassword();
         $hash = $result['password'];
         if (password_verify($password, $hash)) {
+            $this->setId($result["id"]);
             return true;
         }else{
             throw new Exception("Username or password is incorrect!");

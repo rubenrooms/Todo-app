@@ -66,5 +66,21 @@ class TodoList
 
         return $this;
     }
+
+    public function save()
+    {
+        $conn = Db::getConnection();
+        var_dump("connection");
+        $sql = "INSERT INTO Lists (name, user_id) VALUES (:listname, :user_id)";
+        $statement = $conn->prepare($sql);
+        $name = $this->getName();
+        $user_id = $this->getUser_id();
+
+        $statement->bindValue(":listname", $name);
+        $statement->bindValue(":user_id", $user_id);
+        $statement->execute();
+
+        return $this;
+    }
 }
 ?>
