@@ -19,6 +19,14 @@
         $list->setUser_id($_SESSION['id']);
         $list->save();
     }
+
+    $list = new TodoList();
+
+    try{
+        $lists = $list->getAllTodoLists();
+    } catch (Throwable $th){
+        $error = $th->getMessage();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +51,13 @@
             <a href=""><button>add list</button></a>
         </form>
     </div>
-    <h1>Todo's</h1>
+    <h1>Todolists</h1>
+    <?php foreach ($lists as $list): ?>
+    <section id="Todolists">
+        <a href="#"><div>
+            <h4><?php echo $list['name'] ?></h4>
+        </div></a>
+    </section>
+    <?php endforeach; ?>
 </body>
 </html> 

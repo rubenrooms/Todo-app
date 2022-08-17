@@ -82,5 +82,16 @@ class TodoList
 
         return $this;
     }
+
+    public function getAllTodolists()
+    {
+        $conn = Db::getConnection();
+
+        $sql = "SELECT * FROM Lists";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetchAll();  
+    }
 }
 ?>
