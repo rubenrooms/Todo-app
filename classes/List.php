@@ -82,8 +82,8 @@ class TodoList
 
         return $this;
     }
-
-    public function getAllTodolists()
+    
+    public function getAllLists()
     {
         $conn = Db::getConnection();
 

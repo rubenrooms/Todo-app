@@ -11,8 +11,6 @@
         header("Location: login.php");
     }
 
-    var_dump($_SESSION['id']);
-
     if (!empty($_POST)) {
         $list = new TodoList();
         $list->setName($_POST['listname']);
@@ -23,7 +21,7 @@
     $list = new TodoList();
 
     try{
-        $lists = $list->getAllTodoLists();
+        $lists = $list->getAllLists();
     } catch (Throwable $th){
         $error = $th->getMessage();
     }
@@ -51,9 +49,9 @@
             <a href=""><button>add list</button></a>
         </form>
     </div>
-    <h1>Todolists</h1>
+    <h1>Lists</h1>
     <?php foreach ($lists as $list): ?>
-    <section id="Todolists">
+    <section id="Lists">
         <a href="#"><div>
             <h4><?php echo $list['name'] ?></h4>
         </div></a>
