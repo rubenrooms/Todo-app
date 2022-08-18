@@ -43,8 +43,7 @@ include_once("classes/Task.php");
 
         <?php foreach ($todos as $todo): ?>
         <div>
-            <a href="#" onclick="window.location='list.php?list=<?php echo $list['id']?>'"><div>
-                
+            <a href="#" onclick="window.location='task.php?task=<?php echo $todo['id']?>'"><div>
                 <h4><?php echo $todo['title'] ?></h4>
                 <p><?php echo $todo['deadline'] ?><p>
             </div></a>

@@ -227,4 +227,15 @@ class Task {
 
         return $statement->fetchAll();  
     }
+
+    public static function getTaskById($id)
+    {
+        $conn = Db::getConnection();
+
+        $sql = "SELECT * FROM Todo WHERE id = $id LIMIT 1";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 }
