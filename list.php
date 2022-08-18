@@ -1,6 +1,7 @@
 <?php
 include_once("classes/Db.php");
 include_once("classes/List.php");
+include_once("classes/Task.php");
 
     session_start();
     if(isset($_SESSION["username"])){
@@ -13,6 +14,14 @@ include_once("classes/List.php");
     if (!empty($_GET)) {
         $id = $_GET['list'];
         $list = TodoList::getListById($id);
+    }
+
+    $todo = new Task();
+
+    try{
+        $todos = $todo->getAllTasks($_GET['list']);
+    } catch (Throwable $th){
+        $error = $th->getMessage();
     }
 ?>
 
@@ -30,6 +39,17 @@ include_once("classes/List.php");
     </nav>
     <section>
         <h1>Todo's from <?php echo $list['name'] ?></h1>
+        <a href="#" onclick="window.location='newTask.php?list=<?php echo $list['id']?>'"><button>Add new todo</button></a> 
+
+        <?php foreach ($todos as $todo): ?>
+        <div>
+            <a href="#" onclick="window.location='list.php?list=<?php echo $list['id']?>'"><div>
+                
+                <h4><?php echo $todo['title'] ?></h4>
+                <p><?php echo $todo['deadline'] ?><p>
+            </div></a>
+        </div>
+        <?php endforeach ?>
     </section>
 
     

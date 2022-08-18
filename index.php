@@ -52,11 +52,9 @@
     <h1>Lists</h1>
     <?php foreach ($lists as $list): ?>
     <section id="Lists">
-        <a href="#"><div>
             <a href="#" onclick="window.location='list.php?list=<?php echo $list['id']?>'"><div>
                 <h4><?php echo $list['name'] ?></h4>
             </div></a>
-        </div></a>
     </section>
     <?php endforeach; ?>
 </body>
