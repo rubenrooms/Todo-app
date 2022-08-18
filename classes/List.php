@@ -82,7 +82,7 @@ class TodoList
 
         return $this;
     }
-    
+
     public function getAllLists()
     {
         $conn = Db::getConnection();
@@ -94,6 +94,17 @@ class TodoList
         $statement->execute();
 
         return $statement->fetchAll();  
+    }
+
+    public static function getListById($id)
+    {
+        $conn = Db::getConnection();
+
+        $sql = "SELECT * FROM Lists WHERE id = $id LIMIT 1";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetch();
     }
 }
 ?>
