@@ -27,12 +27,26 @@ include_once("classes/Task.php");
 </head>
 <body>
     <section>
-        <h4><?php echo $todo['title'] ?></h4>
-        <p>Description: <?php echo $todo['description'] ?><p>
-        <p>Deadline: <?php echo $todo['deadline'] ?><p>
-        <p>Hours you need: <?php echo $todo['hours_needed'] ?><p>
-        <p>Finished: <?php echo $todo['done'] ?><p>
+        <div>
+            <h4><?php echo $todo['title'] ?></h4>
+            <p>Description: <?php echo $todo['description'] ?><p>
+            <p>Deadline: <?php echo $todo['deadline'] ?><p>
+            <p>Hours you need: <?php echo $todo['hours_needed'] ?><p>
+            <p>Finished: <?php echo $todo['done'] ?><p>
+        </div>
+        <div>
+            <div>
+                <p>Want to leave a comment?</p>
+                <input type="text" placeholder="write a comment..." name="comment" id="commentText">
+                <a href="#" id="commentBtn" data-todoid="<?php echo $todo['id'] ?>">comment</a>
+            </div>
+            <ul>
+                
+            </ul>
+        </div>
+
     </section>
 
+    <script src="javascript/comment.js"></script>
 </body>
 </html>
