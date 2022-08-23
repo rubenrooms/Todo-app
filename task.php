@@ -40,7 +40,7 @@ include_once("classes/Task.php");
                 <input type="text" placeholder="write a comment..." name="comment" id="commentText">
                 <a href="#" id="commentBtn" data-todoid="<?php echo $todo['id'] ?>">comment</a>
             </div>
-            <ul>
+            <ul class="commentsOnTodo">
                 
             </ul>
         </div>
