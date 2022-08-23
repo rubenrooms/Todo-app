@@ -18,14 +18,9 @@
 
         $c->saveComment();
 
-        $username = $_SESSION['username'];
-
         $response = [
             'status' => 'succes',
-            'body' => [
-                $username,
-                htmlspecialchars($c->getText())
-            ],
+            'body' => htmlspecialchars($c->getText()),
             'message' => 'Comment saved!'
         ];
 

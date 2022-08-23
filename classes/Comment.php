@@ -103,4 +103,15 @@ class Comment {
 
         return $statement->execute();
     }
+
+    public static function getAll($todo_id)
+    {
+        $conn = Db::getConnection();
+
+        $sql = "SELECT * FROM comments WHERE todo_id = $todo_id";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC); 
+    }
 }

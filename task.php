@@ -2,6 +2,9 @@
 include_once("classes/Db.php");
 include_once("classes/List.php");
 include_once("classes/Task.php");
+include_once("classes/Comment.php");
+
+$allComments = Comment::getAll($_GET['task']);
 
     session_start();
     if(isset($_SESSION["username"])){
@@ -41,7 +44,9 @@ include_once("classes/Task.php");
                 <a href="#" id="commentBtn" data-todoid="<?php echo $todo['id'] ?>">comment</a>
             </div>
             <ul class="commentsOnTodo">
-                
+                <?php foreach($allComments as $comment): ?>
+                    <li><?php echo $comment['text']; ?></li>
+                <?php endforeach; ?>
             </ul>
         </div>
 
