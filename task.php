@@ -1,8 +1,9 @@
 <?php
-include_once("classes/Db.php");
-include_once("classes/List.php");
-include_once("classes/Task.php");
-include_once("classes/Comment.php");
+include_once(__DIR__ . "/classes/Db.php");
+include_once(__DIR__ . "/classes/List.php");
+include_once(__DIR__ . "/classes/Task.php");
+include_once(__DIR__ . "/classes/Comment.php");
+include_once(__DIR__ . "/classes/Done.php");
 
 $allComments = Comment::getAll($_GET['task']);
 
@@ -18,6 +19,8 @@ $allComments = Comment::getAll($_GET['task']);
         $id = $_GET['task'];
         $todo = Task::getTaskById($id);
     }
+
+    $done = new Done();
 
 ?>
 <!DOCTYPE html>
@@ -35,7 +38,13 @@ $allComments = Comment::getAll($_GET['task']);
             <p>Description: <?php echo $todo['description'] ?><p>
             <p>Deadline: <?php echo $todo['deadline'] ?><p>
             <p>Hours you need: <?php echo $todo['hours_needed'] ?><p>
-            <p>Finished: <?php echo $todo['done'] ?><p>
+            <p>Finished: 0<p>
+            <div>
+                <label for="done">Mark as done:</label>
+                <form action="" method="post">
+                    <input type="submit" value="done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="doneBtn_<?php echo $todo['id']; ?>">
+                </form>
+            </div>
         </div>
         <div>
             <div>
@@ -53,5 +62,6 @@ $allComments = Comment::getAll($_GET['task']);
     </section>
 
     <script src="javascript/comment.js"></script>
+    <script src="javascript/done.js"></script>
 </body>
 </html>

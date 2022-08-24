@@ -7,7 +7,6 @@ class Task {
     private $description;
     private $hoursneeded;
     private $deadline;
-    private $done;
     private $list_id;
     private $user_id;
     private $comment_id;
@@ -112,25 +111,6 @@ class Task {
         return $this;
     }
 
-    /**
-     * Get the value of done
-     */ 
-    public function getDone()
-    {
-        return $this->done;
-    }
-
-    /**
-     * Set the value of done
-     *
-     * @return  self
-     */ 
-    public function setDone($done)
-    {
-        $this->done = $done;
-
-        return $this;
-    }
 
     /**
      * Get the value of list_id
@@ -196,13 +176,12 @@ class Task {
     {
         $conn = Db::getConnection();
 
-        $sql = "INSERT INTO Todo (title, description, hours_needed, deadline, done, list_id, user_id) VALUES (:title, :description, :hours_needed, :deadline, :done, :list_id, :user_id)";
+        $sql = "INSERT INTO Todo (title, description, hours_needed, deadline, list_id, user_id) VALUES (:title, :description, :hours_needed, :deadline, :list_id, :user_id)";
         $statement = $conn->prepare($sql);
         $title = $this->getTitle();
         $description = $this->getDescription();
         $hours_needed = $this->getHoursneeded();
         $deadline = $this->getDeadline();
-        $done = 0;
         $list_id = $this->getList_id();
         $user_id = $this->getUser_id();
 
@@ -210,7 +189,6 @@ class Task {
         $statement->bindValue(":description", $description);
         $statement->bindValue(":hours_needed", $hours_needed);
         $statement->bindValue(":deadline", $deadline);
-        $statement->bindValue(":done", $done);
         $statement->bindValue(":list_id", $list_id);
         $statement->bindValue(":user_id", $user_id);
 
