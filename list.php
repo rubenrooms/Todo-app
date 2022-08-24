@@ -11,9 +11,13 @@ include_once("classes/Task.php");
         header("Location: login.php");
     }
 
-    if (!empty($_GET)) {
-        $id = $_GET['list'];
-        $list = TodoList::getListById($id);
+    try{
+        if (!empty($_GET)) {
+            $id = $_GET['list'];
+            $list = TodoList::getListById($id);
+        }
+    } catch (Throwable $th){
+        $error = $th->getMessage();
     }
 
     $todo = new Task();
@@ -37,6 +41,13 @@ include_once("classes/Task.php");
     <nav>
         <a href="logout.php">logout</a>
     </nav>
+
+    <?php if(isset($error)): ?>
+    <div><?php echo $error ?></div>
+    <?php endif; ?>
+    
+    <?php include_once(__DIR__ . "/nav.inc.php") ?>
+
     <section>
         <h1>Todo's from <?php echo $list['name'] ?></h1>
         <a href="#" onclick="window.location='newTask.php?list=<?php echo $list['id']?>'"><button>Add new todo</button></a> 

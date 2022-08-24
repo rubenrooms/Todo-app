@@ -34,6 +34,10 @@ include_once("classes/User.php");
     <title>Signuppage</title>
 </head>
 <body>
+    <?php if(isset($error)): ?>
+    <div><?php echo $error ?></div>
+    <?php endif; ?>
+    
     <div>
         <div>
             <form method="POST">

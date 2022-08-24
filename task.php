@@ -16,9 +16,13 @@ $done = Done::getDone($_GET['task']);
         header("Location: login.php");
     }
 
-    if (!empty($_GET)) {
-        $id = $_GET['task'];
-        $todo = Task::getTaskById($id);
+    try{
+        if (!empty($_GET)) {
+            $id = $_GET['task'];
+            $todo = Task::getTaskById($id);
+        }
+    } catch(\Throwable $th){
+        $error = $th->getMessage();
     }
 
 ?>
@@ -31,6 +35,8 @@ $done = Done::getDone($_GET['task']);
     <title>Task detailpage</title>
 </head>
 <body>
+    <?php include_once(__DIR__ . "/nav.inc.php") ?>
+    
     <section>
         <div>
             <h4><?php echo $todo['title'] ?></h4>

@@ -11,12 +11,17 @@
         header("Location: login.php");
     }
 
-    if (!empty($_POST)) {
-        $list = new TodoList();
-        $list->setName($_POST['listname']);
-        $list->setUser_id($_SESSION['id']);
-        $list->save();
-    }
+    try {
+        if (!empty($_POST)) {
+            $list = new TodoList();
+            $list->setName($_POST['listname']);
+            $list->setUser_id($_SESSION['id']);
+            $list->save();
+        }
+    }catch(\Throwable $th){
+       $error = $th->getMessage();
+   }
+
 
     $list = new TodoList();
 
@@ -36,11 +41,11 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="logout.php">Log out</a>
-        </nav>
-    </header>
+    <?php if(isset($error)): ?>
+    <div><?php echo $error ?></div>
+    <?php endif; ?>
+    
+    <?php include_once(__DIR__ . "/nav.inc.php") ?>
     <div>
         <form action="" method="POST">
             <label for="name" class="">Name of the list</label>

@@ -13,21 +13,30 @@ if(isset($_SESSION["username"])){
 
 $list = new TodoList();
 
-if (!empty($_GET)) {
-    $id = $_GET['list'];
-    $list = TodoList::getListById($id);
+try{
+    if (!empty($_GET)) {
+        $id = $_GET['list'];
+        $list = TodoList::getListById($id);
+    }
+} catch(\Throwable $th){
+    $error = $th->getMessage();
 }
 
-if (!empty($_POST)) {
-    $task = new Task();
-    $task->setTitle($_POST['todoName']);
-    $task->setDescription($_POST['todoDescription']);
-    $task->setHoursneeded($_POST['todoHours']);
-    $task->setDeadline($_POST['todoDeadline']);
-    $task->setUser_id($_SESSION['id']);
-    $task->setList_id($list['id']);
-    $task->saveTask();
+try{
+    if (!empty($_POST)) {
+        $task = new Task();
+        $task->setTitle($_POST['todoName']);
+        $task->setDescription($_POST['todoDescription']);
+        $task->setHoursneeded($_POST['todoHours']);
+        $task->setDeadline($_POST['todoDeadline']);
+        $task->setUser_id($_SESSION['id']);
+        $task->setList_id($list['id']);
+        $task->saveTask();
+    }
+} catch(\Throwable $th){
+    $error = $th->getMessage();
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -39,9 +48,11 @@ if (!empty($_POST)) {
     <title>New Todo</title>
 </head>
 <body>
-    <nav>
-        <a href="logout.php">logout</a>
-    </nav>
+    <?php include_once(__DIR__ . "/nav.inc.php") ?>
+
+    <?php if(isset($error)): ?>
+    <div><?php echo $error ?></div>
+    <?php endif; ?>
     
     <h2>Add new Todo to <?php echo $list['name'] ?></h2>
     <form action="" method="POST">
