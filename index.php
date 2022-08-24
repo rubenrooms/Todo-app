@@ -10,8 +10,6 @@
         header("Location: login.php");
     }
 
-    var_dump($_SESSION['id']);
-
     try {
         if (!empty($_POST)) {
             $list = new TodoList();

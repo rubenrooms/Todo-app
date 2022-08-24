@@ -143,7 +143,7 @@
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM users WHERE username = :username LIMIT 1";
+        $sql = "SELECT * FROM Users WHERE username = :username LIMIT 1";
         $statement = $conn->prepare($sql);
 
         $username = $this->getUsername();
@@ -168,7 +168,7 @@
         session_start();
         $conn = Db::getConnection();
 
-        $sql = "SELECT id FROM users WHERE username = :username";
+        $sql = "SELECT id FROM Users WHERE username = :username";
         $statement = $conn->prepare($sql);
         $statement->bindValue(":username", $username);
         $statement->execute();
