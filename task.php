@@ -6,6 +6,7 @@ include_once(__DIR__ . "/classes/Comment.php");
 include_once(__DIR__ . "/classes/Done.php");
 
 $allComments = Comment::getAll($_GET['task']);
+$done = Done::getDone($_GET['task']);
 
     session_start();
     if(isset($_SESSION["username"])){
@@ -19,8 +20,6 @@ $allComments = Comment::getAll($_GET['task']);
         $id = $_GET['task'];
         $todo = Task::getTaskById($id);
     }
-
-    $done = new Done();
 
 ?>
 <!DOCTYPE html>
@@ -37,12 +36,21 @@ $allComments = Comment::getAll($_GET['task']);
             <h4><?php echo $todo['title'] ?></h4>
             <p>Description: <?php echo $todo['description'] ?><p>
             <p>Deadline: <?php echo $todo['deadline'] ?><p>
-            <p>Hours you need: <?php echo $todo['hours_needed'] ?><p>
-            <p>Finished: 0<p>
+            <p>Hours you need: <?php echo $todo['hours_needed'] ?><p>                     
+            <?php if($done != false): ?>
+            <p>Done: Yes</p>
+            <?php else : ?>
+            <p>Done: No</p>
+            <?php endif; ?>
+
             <div>
-                <label for="done">Mark as done:</label>
+                <label for="done">Mark as done or not done:</label>
                 <form action="" method="post">
+                    <?php if($done != false): ?>
+                    <input type="submit" value="not done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="doneBtn_<?php echo $todo['id']; ?>">
+                    <?php else : ?>
                     <input type="submit" value="done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="doneBtn_<?php echo $todo['id']; ?>">
+                    <?php endif; ?>
                 </form>
             </div>
         </div>

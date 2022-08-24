@@ -77,4 +77,29 @@
 
                 return $statement->execute();
         }
+
+        public function getDoneByTask()
+        {
+                $conn = Db::getConnection();
+
+                $sql = "SELECT * from done WHERE (todo_id) = (:todo_id)";
+                $statement = $conn->prepare($sql);
+
+                $todo_id = $this->getTodo_id();
+
+                $statement->bindValue(":todo_id", $todo_id);
+
+                return $statement->execute();
+        }
+
+        public static function getDone($todo_id)
+        {
+            $conn = Db::getConnection();
+    
+            $sql = "SELECT * FROM done WHERE (todo_id) = $todo_id LIMIT 1";
+            $statement = $conn->prepare($sql);
+            $statement->execute();
+    
+            return $statement->fetch(); 
+        }
     }
