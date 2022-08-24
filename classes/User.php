@@ -162,4 +162,19 @@
             return false;
         }
     }
+
+    public function getSessionId($username)
+    {
+        session_start();
+        $conn = Db::getConnection();
+
+        $sql = "SELECT id FROM users WHERE username = :username";
+        $statement = $conn->prepare($sql);
+        $statement->bindValue(":username", $username);
+        $statement->execute();
+        $result = $statement->fetch();
+
+        return $result['id'];
+
+    }
  }

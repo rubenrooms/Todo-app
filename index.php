@@ -5,11 +5,12 @@
 
     session_start();
     if(isset($_SESSION["username"])){
-        echo "welcome " . $_SESSION["username"];
     }else{
         echo "not logged in";
         header("Location: login.php");
     }
+
+    var_dump($_SESSION['id']);
 
     try {
         if (!empty($_POST)) {
@@ -38,6 +39,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
@@ -46,21 +48,25 @@
     <?php endif; ?>
     
     <?php include_once(__DIR__ . "/nav.inc.php") ?>
-    <div>
-        <form action="" method="POST">
-            <label for="name" class="">Name of the list</label>
-            <input type="name" class="" placeholder="Name of the new list" id="listname" name="listname">
-            <br>
-            <a href=""><button>add list</button></a>
-        </form>
+    <div class="container p-3">
+        <div class="pb-3">
+            <form action="" method="POST">
+                <label for="name" class="mx-1/2">Name of the list</label>
+                <div>
+                    <input type="name" class="mx-1/2" placeholder="Name of the new list" id="listname" name="listname">
+                    <a class="mx-1/2" href=""><button class="btn btn-primary">add list</button></a>
+                </div>
+            </form>
+        </div>
+        <h1 class="">Lists</h1>
+        <?php foreach ($lists as $list): ?>
+        <div class="list-group d-grid gap-2 border-0 py-2" id="Lists">
+                <a class="list-group-item rounded-3 my-1/2 py-2" href="#" onclick="window.location='list.php?list=<?php echo $list['id']?>'"><div>
+                    <h4><?php echo $list['name'] ?></h4>
+                </div></a>
+        </div>
+        <?php endforeach; ?>
     </div>
-    <h1>Lists</h1>
-    <?php foreach ($lists as $list): ?>
-    <section id="Lists">
-            <a href="#" onclick="window.location='list.php?list=<?php echo $list['id']?>'"><div>
-                <h4><?php echo $list['name'] ?></h4>
-            </div></a>
-    </section>
-    <?php endforeach; ?>
+
 </body>
 </html> 

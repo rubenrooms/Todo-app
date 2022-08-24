@@ -5,6 +5,7 @@ include_once("classes/User.php");
 
     if (!empty($_POST)) {
         try {
+            session_start();
             $user = new User();
 
             $user-> setFirstname($_POST["firstname"]);
@@ -14,9 +15,8 @@ include_once("classes/User.php");
             $user-> hashPassword();
 
             $user->save();
-            session_start();
             $_SESSION['username'] = $_POST["username"];
-            $_SESSION['id'] = $user->getId();
+            $_SESSION['id'] = $user->getSessionId($_POST['username']);
             header("Location: index.php");
 
         }catch(\Throwable $th){
@@ -31,6 +31,7 @@ include_once("classes/User.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <title>Signuppage</title>
 </head>
 <body>
@@ -38,30 +39,30 @@ include_once("classes/User.php");
     <div><?php echo $error ?></div>
     <?php endif; ?>
     
-    <div>
+    <div class="height-90 flex-cc container my-3">
         <div>
             <form method="POST">
-                <h1>Please sign in</h1>
-                <div>
-                    <div>
-                        <label for="firstname">First Name</label>
-                        <input type="text" placeholder="First name" id="firstname" name="firstname">
+                <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <label class="form-label" for="firstname">First Name</label>
+                        <input class="form-control" type="text" placeholder="First name" id="firstname" name="firstname">
                     </div>
                     <div class="col">
-                        <label for="lastname">Last Name</label>
-                        <input type="text" placeholder="Last name" id="lastname" name="lastname">
+                        <label class="form-label" for="lastname">Last Name</label>
+                        <input class="form-control" type="text" placeholder="Last name" id="lastname" name="lastname">
                     </div>
                 </div>
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="username" id="username" name="username">
+                <div class="mb-3">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-control" type="text" placeholder="username" id="username" name="username">
                 </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="password" id="password" name="password">
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-control" type="password" placeholder="password" id="password" name="password">
                     <small>already have an account? <a href="login.php">Login</a></small>
                 </div>
-                <button type="submit">Sign up</button>
+                <button type="submit" class="btn btn-primary">Sign up</button>
             </form>
         </div>
     </div>

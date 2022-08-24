@@ -10,7 +10,6 @@ $done = Done::getDone($_GET['task']);
 
     session_start();
     if(isset($_SESSION["username"])){
-        echo "welcome " . $_SESSION["username"];
     }else{
         echo "not logged in";
         header("Location: login.php");
@@ -32,43 +31,46 @@ $done = Done::getDone($_GET['task']);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <title>Task detailpage</title>
 </head>
 <body>
     <?php include_once(__DIR__ . "/nav.inc.php") ?>
     
-    <section>
-        <div>
+    <section class="container">
+        <div class="mb-3">
             <h4><?php echo $todo['title'] ?></h4>
-            <p>Description: <?php echo $todo['description'] ?><p>
-            <p>Deadline: <?php echo $todo['deadline'] ?><p>
-            <p>Hours you need: <?php echo $todo['hours_needed'] ?><p>                     
+            <p>Description <strong><?php echo $todo['description'] ?></strong><p>
+            <p>Deadline: <strong><?php echo $todo['deadline'] ?></strong><p>
+            <p>Hours you need: <strong><?php echo $todo['hours_needed'] ?></strong><p>                     
             <?php if($done != false): ?>
-            <p>Done: Yes</p>
+            <p>Done: <strong>Yes</strong></p>
             <?php else : ?>
-            <p>Done: No</p>
+            <p>Done: <strong>No</strong></p>
             <?php endif; ?>
 
             <div>
-                <label for="done">Mark as done or not done:</label>
+                <label class="mb-2" for="done">Mark as done or not done:</label>
                 <form action="" method="post">
                     <?php if($done != false): ?>
-                    <input type="submit" value="not done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="doneBtn_<?php echo $todo['id']; ?>">
+                    <input type="submit" value="not done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="btn btn-success doneBtn_<?php echo $todo['id']; ?>">
                     <?php else : ?>
-                    <input type="submit" value="done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="doneBtn_<?php echo $todo['id']; ?>">
+                    <input type="submit" value="done" name="done" data-todoid="<?php echo $todo['id'] ?>" id="doneBtn" class="btn btn-success doneBtn_<?php echo $todo['id']; ?>">
                     <?php endif; ?>
                 </form>
             </div>
         </div>
         <div>
-            <div>
+            <div class="mb-2">
                 <p>Want to leave a comment?</p>
                 <input type="text" placeholder="write a comment..." name="comment" id="commentText">
-                <a href="#" id="commentBtn" data-todoid="<?php echo $todo['id'] ?>">comment</a>
+                <a class="btn btn-primary" href="#" id="commentBtn" data-todoid="<?php echo $todo['id'] ?>">comment</a>
             </div>
-            <ul class="commentsOnTodo">
+            <ul class="commentsOnTodo listgroup">
                 <?php foreach($allComments as $comment): ?>
-                    <li><?php echo $comment['text']; ?></li>
+                    <li class="py-2 px-2 rounded-3 bg-light list-group-item">
+                        <?php echo $comment['text']; ?>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>
