@@ -199,7 +199,7 @@ class Task {
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM Todo WHERE list_id = $id";
+        $sql = "SELECT * FROM Todo WHERE list_id = $id ORDER BY deadline ASC";
         $statement = $conn->prepare($sql);
         $statement->execute();
 
