@@ -2,7 +2,6 @@ document.querySelector("#commentBtn").addEventListener("click", function () {
 
     let todoId = this.dataset.todoid;
     let text = document.querySelector("#commentText").value;
-    let username = this.dataset.username;
 
     console.log(todoId);
     console.log(text)
@@ -10,7 +9,6 @@ document.querySelector("#commentBtn").addEventListener("click", function () {
     let formData = new FormData();
     formData.append("text", text);
     formData.append("todoId", todoId);
-    formData.append("username", username);
 
     fetch("ajax/savecomment.php", {
         method: "POST",
