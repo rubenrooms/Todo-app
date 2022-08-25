@@ -96,8 +96,9 @@
         {
             $conn = Db::getConnection();
     
-            $sql = "SELECT * FROM done WHERE (todo_id) = $todo_id LIMIT 1";
+            $sql = "SELECT * FROM done WHERE (todo_id) = (:todo_id) LIMIT 1";
             $statement = $conn->prepare($sql);
+            $statement->bindValue(":todo_id", $todo_id);
             $statement->execute();
     
             return $statement->fetch(); 

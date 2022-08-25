@@ -39,10 +39,10 @@ $done = Done::getDone($_GET['task']);
     
     <section class="container">
         <div class="mb-3">
-            <h4><?php echo $todo['title'] ?></h4>
-            <p>Description <strong><?php echo $todo['description'] ?></strong><p>
-            <p>Deadline: <strong><?php echo $todo['deadline'] ?></strong><p>
-            <p>Hours you need: <strong><?php echo $todo['hours_needed'] ?></strong><p>                     
+            <h4><?php echo htmlspecialchars($todo['title']) ?></h4>
+            <p>Description <strong><?php echo htmlspecialchars($todo['description']) ?></strong><p>
+            <p>Deadline: <strong><?php echo htmlspecialchars($todo['deadline']) ?></strong><p>
+            <p>Hours you need: <strong><?php echo htmlspecialchars($todo['hours_needed']) ?></strong><p>                     
             <?php if($done != false): ?>
             <p>Done: <strong>Yes</strong></p>
             <?php else : ?>
@@ -69,7 +69,7 @@ $done = Done::getDone($_GET['task']);
             <ul class="commentsOnTodo listgroup">
                 <?php foreach($allComments as $comment): ?>
                     <li class="py-2 px-2 rounded-3 bg-light list-group-item">
-                        <?php echo $comment['text']; ?>
+                        <?php echo htmlspecialchars($comment['text']); ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

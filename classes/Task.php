@@ -199,8 +199,9 @@ class Task {
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM Todo WHERE list_id = $id ORDER BY deadline ASC";
+        $sql = "SELECT * FROM Todo WHERE list_id = :id ORDER BY deadline ASC";
         $statement = $conn->prepare($sql);
+        $statement->bindValue(":id", $id);
         $statement->execute();
 
         return $statement->fetchAll();  
@@ -210,8 +211,9 @@ class Task {
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM Todo WHERE id = $id LIMIT 1";
+        $sql = "SELECT * FROM Todo WHERE id = :id LIMIT 1";
         $statement = $conn->prepare($sql);
+        $statement->bindValue(":id", $id);
         $statement->execute();
 
         return $statement->fetch();

@@ -60,7 +60,7 @@
         <?php foreach ($lists as $list): ?>
         <div class="list-group d-grid gap-2 border-0 py-2" id="Lists">
                 <a class="list-group-item rounded-3 my-1/2 py-2" href="#" onclick="window.location='list.php?list=<?php echo $list['id']?>'"><div>
-                    <h4><?php echo $list['name'] ?></h4>
+                    <h4><?php echo htmlspecialchars($list['name']) ?></h4>
                 </div></a>
         </div>
         <?php endforeach; ?>

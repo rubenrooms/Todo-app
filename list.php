@@ -46,14 +46,14 @@ include_once("classes/Task.php");
     <?php include_once(__DIR__ . "/nav.inc.php") ?>
 
     <section class="container">
-        <h1>Todo's from <?php echo $list['name'] ?></h1>
+        <h1>Todo's from <?php echo htmlspecialchars($list['name']) ?></h1>
         <a class="btn btn-primary right" href="#" onclick="window.location='newTask.php?list=<?php echo $list['id']?>'">Add new todo</a> 
 
         <?php foreach ($todos as $todo): ?>
         <div class="list-group d-grid gap-2 border-0 py-2">
             <a href="#" class="list-group-item rounded-3 my-1/2 px-3 py-2" onclick="window.location='task.php?task=<?php echo $todo['id']?>'"><div>
-                <h4 ><?php echo $todo['title'] ?></h4>
-                <p class="small"><?php echo $todo['deadline'] ?><p>
+                <h4 ><?php echo htmlspecialchars($todo['title']) ?></h4>
+                <p class="small"><?php echo htmlspecialchars($todo['deadline']) ?><p>
             </div></a>
         </div>
         <?php endforeach ?>

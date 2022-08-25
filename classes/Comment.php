@@ -108,8 +108,9 @@ class Comment {
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM comments WHERE todo_id = $todo_id";
+        $sql = "SELECT * FROM comments WHERE todo_id = :todo_id";
         $statement = $conn->prepare($sql);
+        $statement->bindValue(":todo_id", $todo_id);
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC); 

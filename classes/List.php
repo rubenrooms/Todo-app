@@ -100,8 +100,9 @@ class TodoList
     {
         $conn = Db::getConnection();
 
-        $sql = "SELECT * FROM Lists WHERE id = $id LIMIT 1";
+        $sql = "SELECT * FROM Lists WHERE id = :id LIMIT 1";
         $statement = $conn->prepare($sql);
+        $statement->bindValue(":id", $id);
         $statement->execute();
 
         return $statement->fetch();

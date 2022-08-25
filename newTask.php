@@ -54,7 +54,7 @@ try{
     <div><?php echo $error ?></div>
     <?php endif; ?>
     <div class="height-90 flex-cc container my-3">
-        <h2 class="h3 mb-3 fw-normal">Add new Todo to <?php echo $list['name'] ?></h2>
+        <h2 class="h3 mb-3 fw-normal">Add new Todo to <?php echo htmlspecialchars($list['name']) ?></h2>
         <form action="" method="POST">
             <div class="mb-2">
                 <label class="form-label" for="name">Title of the Todo</label>
